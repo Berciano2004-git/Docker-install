@@ -1,6 +1,3 @@
-# Docker-install
-Aqui voy a documentar como la ia creó los contenedores necesarios en docker para clase
-
 # Configuración de Contenedores Docker: MySQL, Apache y phpMyAdmin
 
 Este proyecto configura tres contenedores Docker independientes que trabajan juntos: una base de datos MySQL, un servidor web Apache y phpMyAdmin para gestionar la base de datos.
@@ -248,4 +245,3 @@ Este proyecto es de código abierto y libre de usar.
 Para más información sobre Docker:
 - [Documentación de Docker](https://docs.docker.com/)
 - [Docker Compose Documentation](https://docs.docker.com/compose/)
-
