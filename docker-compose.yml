@@ -1,0 +1,53 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: myapp
+      MYSQL_USER: appuser
+      MYSQL_PASSWORD: apppassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  apache:
+    image: httpd:2.4
+    container_name: apache_web
+    ports:
+      - "8000:80"
+    volumes:
+      - ./html:/usr/local/apache2/htdocs
+    networks:
+      - app_network
+    depends_on:
+      - mysql
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin_admin
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: rootpassword
+      PMA_PORT: 3306
+    ports:
+      - "8080:80"
+    networks:
+      - app_network
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_data:
+
+networks:
+  app_network:
+    driver: bridge
