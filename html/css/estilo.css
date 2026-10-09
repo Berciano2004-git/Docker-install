@@ -1,0 +1,53 @@
+/* =====================================================================
+   Estilos de la estación ARES-7 (solo presentación: nada de PHP aquí)
+   ===================================================================== */
+:root {
+  --fondo: #0b1020;
+  --panel: #141b33;
+  --borde: #26325c;
+  --texto: #e6ebff;
+  --tenue: #8d98c4;
+  --acento: #ff5a44;
+  --ok: #2fd39a;
+  --aviso: #ffc24b;
+  --mono: "JetBrains Mono", "Fira Code", Consolas, monospace;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 2rem 1rem 4rem;
+  background: radial-gradient(circle at 20% 0%, #1b2550 0%, var(--fondo) 55%);
+  color: var(--texto);
+  font-family: system-ui, "Segoe UI", Arial, sans-serif;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+main { max-width: 900px; margin: 0 auto; }
+h1 { font-size: 1.9rem; margin: 0 0 .25rem; }
+h1 small { display: block; font-size: .95rem; color: var(--tenue); font-weight: 400; }
+h2 { font-size: 1.2rem; margin: 2rem 0 .75rem; color: var(--acento); }
+a { color: var(--ok); }
+.paso {
+  display: inline-block; font-family: var(--mono); font-size: .8rem;
+  background: var(--acento); color: #fff; padding: .15rem .6rem; border-radius: 999px;
+}
+.panel {
+  background: var(--panel); border: 1px solid var(--borde);
+  border-radius: 14px; padding: 1rem 1.25rem; margin: 1rem 0;
+}
+.rejilla { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1rem; }
+.dato { background: var(--panel); border: 1px solid var(--borde); border-radius: 14px; padding: 1rem; }
+.dato .etiqueta { color: var(--tenue); font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; }
+.dato .valor { font-size: 1.6rem; font-weight: 700; font-family: var(--mono); }
+.ok { color: var(--ok); } .aviso { color: var(--aviso); } .alerta { color: var(--acento); }
+table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+th, td { text-align: left; padding: .45rem .6rem; border-bottom: 1px solid var(--borde); }
+th { color: var(--tenue); font-weight: 600; }
+code, pre, .mono { font-family: var(--mono); }
+pre {
+  background: #0a0f1f; border: 1px solid var(--borde); border-radius: 10px;
+  padding: .9rem 1rem; overflow-x: auto; font-size: .85rem; color: #cfe3ff;
+}
+.barra { font-family: var(--mono); letter-spacing: 1px; color: var(--ok); }
+.nota { color: var(--tenue); font-size: .9rem; }
+footer { margin-top: 3rem; color: var(--tenue); font-size: .85rem; }

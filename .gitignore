@@ -47,10 +47,8 @@ __pycache__/
 .env.local
 .env.*.local
 
-# Backups
-*.bak
-*.backup
-*~
+# Copias de seguridad generadas localmente
+backups/forja-before-kit/
 
 # Windows
 *.bat

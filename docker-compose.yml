@@ -1,53 +1,71 @@
-services:
-  mysql:
-    image: mysql:8.0
-    container_name: mysql_db
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: myapp
-      MYSQL_USER: appuser
-      MYSQL_PASSWORD: apppassword
-    ports:
-      - "3306:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
-    networks:
-      - app_network
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      timeout: 20s
-      retries: 10
+version: '3.8'
 
-  apache:
-    image: httpd:2.4
-    container_name: apache_web
+services:
+  php1:
+    image: php:8.4-apache
     ports:
       - "8000:80"
+    container_name: php_web_1
+    restart: unless-stopped
     volumes:
-      - ./html:/usr/local/apache2/htdocs
+      - ./inicio:/var/www/html
     networks:
-      - app_network
-    depends_on:
-      - mysql
+      - docker_app_network
+
+  php2:
+    image: php:8.4-apache
+    ports:
+      - "8001:80"
+    container_name: php_web_2
+    restart: unless-stopped
+    volumes:
+      - ./html:/var/www/html
+    networks:
+      - docker_app_network
+
+  php3:
+    image: php:8.4-apache
+    ports:
+      - "8002:80"
+    container_name: php_web_3
+    restart: unless-stopped
+    volumes:
+      - ./forja:/var/www/html
+    networks:
+      - docker_app_network
+
+  mysql:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: test
+    restart: unless-stopped
+    networks:
+      - docker_app_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   phpmyadmin:
     image: phpmyadmin:latest
-    container_name: phpmyadmin_admin
-    environment:
-      PMA_HOST: mysql
-      PMA_USER: root
-      PMA_PASSWORD: rootpassword
-      PMA_PORT: 3306
     ports:
       - "8080:80"
-    networks:
-      - app_network
+    container_name: phpmyadmin_admin
+    environment:
+      PMA_HOST: mysql_db
+      PMA_USER: root
+      PMA_PASSWORD: root
+    restart: unless-stopped
     depends_on:
       - mysql
-
-volumes:
-  mysql_data:
+    networks:
+      - docker_app_network
 
 networks:
-  app_network:
+  docker_app_network:
     driver: bridge
