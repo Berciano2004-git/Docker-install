@@ -242,6 +242,9 @@
             <button class="btn-retro" onclick="clickSound(); openForja()">
                 ⚒ FORJA DE HÉROES
             </button>
+            <button class="btn-retro" onclick="clickSound(); openForjaII()">
+                🏰 FORJA DE HÉROES II
+            </button>
         </div>
     </div>
 
@@ -280,9 +283,14 @@
             window.open('http://localhost:8001/', 'AresGuiado', 'width=1200,height=800');
         }
 
+        function openForjaII() {
+            window.open('http://localhost:8003/expedicion.php', 'ForjaHeroesII', 'width=1200,height=900');
+        }
+
         function openForja() {
             window.open('http://localhost:8002/', 'ForjaHeroes', 'width=1200,height=800');
         }
+
 
     </script>
 </body>
