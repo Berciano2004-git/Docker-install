@@ -12,6 +12,7 @@ foreach ($party as $i => $heroe) {
 
     // match selecciona la fórmula de daño propia de cada clase.
     $danio = match ($heroe['clase']) {
+        'Guerrero' => $heroe['fuerza'] ** 2 / 10 + $nivel * 2,
         'Guerrera' => $heroe['fuerza'] ** 2 / 10 + $nivel * 2,
         'Hechicero' => $heroe['inteligencia'] * 3 + $nivel ** 2 / 4,
         'Pícara' => $heroe['destreza'] * 2 + $nivel ** 1.5,
@@ -32,6 +33,7 @@ foreach ($party as $i => $heroe) {
 
     // switch agrupa las clases que ocupan la primera línea.
     switch ($heroe['clase']) {
+        case 'Guerrero':
         case 'Guerrera':
         case 'Clérigo':
             $posicion = 'Primera línea';

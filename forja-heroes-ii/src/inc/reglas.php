@@ -23,6 +23,7 @@ const BLOQUES_BARRA = 20;    // longitud de las barras de progreso
 // --- Novedad UD3: una constante puede ser un ARRAY ---------------------
 // Multiplicador de vida según la clase (array asociativo clase => valor).
 const MULT_VIDA = [
+    'Guerrero'  => 3,
     'Guerrera'  => 3,
     'Hechicero' => 1,
     'Pícara'    => 2,
