@@ -34,6 +34,9 @@ $party = [
     ['nombre' => 'Sor Maren <la Paciente>',        'clase' => 'Clérigo',
      'fuerza' => 10, 'destreza' => 8,  'inteligencia' => 14, 'constitucion' => 13,
      'xp' => 1210, 'vida' => 100],
+    ['nombre' => 'Bjorn Ragnarson <Piel de Hierro>', 'clase' => 'Guerrera',
+     'fuerza' => 18, 'destreza' => 17, 'inteligencia' => 15, 'constitucion' => 20,
+     'xp' => 1225000, 'vida' => 500],
 ];
 
 // --- Inventario compartido y precios del mercado ------------------------
