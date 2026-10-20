@@ -31,6 +31,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./forja:/var/www/html
+      - ./forja/php/forja.ini:/usr/local/etc/php/conf.d/forja.ini:ro
     networks:
       - docker_app_network
 
