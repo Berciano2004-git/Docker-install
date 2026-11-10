@@ -1,0 +1,60 @@
+services:
+  app:
+    build: .
+    image: ud03-e2-node:local
+    restart: unless-stopped
+    environment:
+      PORT: 3000
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: ud03
+      DB_PASSWORD: ${DB_PASSWORD:-ud03_local_only}
+      DB_NAME: ud03
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://127.0.0.1:3000/health', r => process.exit(r.statusCode === 200 ? 0 : 1)).on('error', () => process.exit(1))"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+    networks:
+      - ud03-net
+
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ud03
+      MYSQL_USER: ud03
+      MYSQL_PASSWORD: ${DB_PASSWORD:-ud03_local_only}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-ud03_root_local_only}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    networks:
+      - ud03-net
+
+  proxy:
+    image: httpd:2.4-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./apache/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro
+    depends_on:
+      - app
+    networks:
+      - ud03-net
+
+volumes:
+  mysql_data:
+
+networks:
+  ud03-net:
+    driver: bridge

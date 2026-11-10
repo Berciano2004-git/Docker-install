@@ -1,0 +1,14 @@
+{
+  "name": "ud03-e2-node-deploy",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Aplicación Node 20 para la práctica UD03_E2",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "mysql2": "^3.14.0"
+  }
+}

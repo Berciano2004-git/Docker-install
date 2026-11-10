@@ -1,0 +1,29 @@
+name: UD03_E2 pipeline
+on:
+  push:
+    paths:
+      - 'ud03-e2/**'
+      - '.github/workflows/ud03-e2.yml'
+  pull_request:
+    paths:
+      - 'ud03-e2/**'
+      - '.github/workflows/ud03-e2.yml'
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ud03-e2
+    steps:
+      - name: Obtener código
+        uses: actions/checkout@v4
+      - name: Configurar Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Instalar dependencias
+        run: npm ci
+      - name: Ejecutar pruebas
+        run: npm test
+      - name: Construir imagen
+        run: docker build -t ud03-e2-node:${{ github.sha }} .
